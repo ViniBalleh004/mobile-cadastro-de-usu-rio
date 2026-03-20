@@ -2,6 +2,7 @@ package com.joaofelipe.vinicius.cadastro_usuario;
 
 import android.app.AppComponentFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,18 @@ public class CreateUser  extends AppCompatActivity {
         editNome = findViewById(R.id.nome_completo);
         editEmail = findViewById(R.id.Email);
         btnSalvar = findViewById(R.id.bntSalvar);
+
+        btnSalvar.setOnClickListener(View v ->{
+            String nome  = editNome.getText().toString();
+            String email  = editEmail.getText().toString();
+
+            if (!nome.isEmpty()){
+                MainActivity.listaNomes.add(nome + "( "+ email +" ");
+                finish();
+            }
+        });
+
+
     }
 
 
