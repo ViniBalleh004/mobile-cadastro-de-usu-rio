@@ -26,7 +26,7 @@ public class CreateUser  extends AppCompatActivity {
         editEmail = findViewById(R.id.Email);
         btnSalvar = findViewById(R.id.bntSalvar);
 
-        btnSalvar.setOnClickListener(View v ->{
+        btnSalvar.setOnClickListener(View ->{
             String nome  = editNome.getText().toString();
             String email  = editEmail.getText().toString();
 

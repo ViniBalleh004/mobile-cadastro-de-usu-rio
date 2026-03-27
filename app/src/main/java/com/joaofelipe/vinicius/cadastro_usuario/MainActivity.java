@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         btnCadastrar = findViewById(R.id.btnCadastrar);
 
         //Configura o evento de clique usando a expressão lambda (java 8+)
-        btnCadastrar.setOnClickListener( View ->){
+        btnCadastrar.setOnClickListener( View -> {
             startActivity(new Intent(MainActivity.this, CreateUser.class));
-        }
+        });
 
 
     }
@@ -75,5 +75,4 @@ public class MainActivity extends AppCompatActivity {
         // na outra tela, forçando a atualização visual da lista
         adapter.notifyDataSetChanged();
     }
-
 }

@@ -1,29 +1,80 @@
-# Projeto Cadastro de Usuário
+# 📱 Mobile Cadastro de Usuário - Android Nativo
 
-Este é um aplicativo Android simples desenvolvido para realizar o cadastro de usuários e exibi-los em uma lista.
-
-## Como o projeto funciona
-
-O aplicativo permite que o usuário navegue entre duas telas principais:
-1. **Tela Principal (MainActivity):** Exibe uma lista de usuários cadastrados utilizando um `RecyclerView`. Possui um botão para acessar a tela de cadastro.
-2. **Tela de Cadastro (CreateUser):** Oferece campos de entrada para o nome e e-mail do usuário. Ao clicar em "Salvar", os dados são adicionados à lista e o usuário retorna à tela principal.
-
-## Descrição das Classes
-
-### 1. MainActivity.java
-Esta é a atividade principal do aplicativo.
-- **Função:** Gerenciar a visualização da lista de usuários.
-- **Componentes:** Contém um `RecyclerView` para listar os itens e um botão que inicia a `CreateUser` activity.
-
-### 2. CreateUser.java
-Esta classe é responsável pela interface de cadastro de novos usuários.
-- **Função:** Capturar as informações digitadas pelo usuário (Nome e E-mail).
-- **Lógica:** Valida se o campo de nome não está vazio e, teoricamente, adiciona as informações a uma lista compartilhada antes de fechar a tela (`finish()`).
-
-### 3. UserAdapter.java
-Esta classe atua como um intermediário entre a fonte de dados e o `RecyclerView`.
-- **Função:** Converter os dados de cada usuário em visualizações (Views) que podem ser exibidas dentro da lista na `MainActivity`.
-- **Status:** Atualmente em desenvolvimento para integrar a lógica de exibição.
+Este projeto é uma aplicação Android desenvolvida em **Java** que serve como um guia prático para a implementação de fluxos de cadastro, manipulação de listas dinâmicas com `RecyclerView` e gerenciamento de estado entre telas.
 
 ---
-*Nota: O projeto utiliza componentes do Android Jetpack como AppCompat e Material Design para uma interface moderna.*
+
+## 📖 Visão Geral do Projeto
+
+O objetivo deste aplicativo é permitir que o usuário cadastre informações básicas (Nome e E-mail) e visualize esses dados instantaneamente em uma lista organizada na tela principal. O projeto foca em fundamentos de arquitetura Android, como o ciclo de vida das Activities e a eficiência de renderização.
+
+---
+
+## 🛠️ Detalhamento Técnico da Implementação
+
+### 1. `MainActivity.java` (O Centro de Controle)
+Esta Activity é responsável por orquestrar a exibição dos dados.
+*   **Persistência de Dados:** Utiliza uma `public static List<String> listaNomes`. A escolha do modificador `static` permite que os dados persistam na memória durante a sessão do aplicativo, sendo acessíveis de forma direta por outras telas sem a complexidade de Serialização/Parcelable neste estágio inicial.
+*   **Gerenciamento do RecyclerView:** 
+    *   Configura um `LinearLayoutManager` para garantir uma rolagem vertical fluida.
+    *   Inicializa o `UserAdapter` injetando a fonte de dados.
+*   **Ciclo de Vida (`onResume`):** Implementa a atualização reativa. Ao retornar da tela de cadastro, o método `adapter.notifyDataSetChanged()` é invocado para redesenhar a lista com os novos dados inseridos.
+
+### 2. `CreateUser.java` (Interface de Entrada)
+Activity dedicada à interação do usuário e coleta de dados.
+*   **Componentes Material Design:** Uso de `TextInputEditText` para entradas de texto, proporcionando validações visuais e labels flutuantes.
+*   **Lógica de Negócio:**
+    *   Valida se o campo de nome foi preenchido.
+    *   Concatena o nome e o e-mail em uma única String para exibição simplificada.
+    *   Utiliza o método `finish()` para encerrar a tela após o salvamento, otimizando o uso da pilha de Activities.
+
+### 3. `UserAdapter.java` (Motor de Renderização)
+Implementação customizada do padrão Adapter para o `RecyclerView`.
+*   **Padrão ViewHolder:** Criado para evitar chamadas excessivas ao método `findViewById`, o que melhora significativamente a performance em listas longas.
+*   **Layout Nativo:** Utiliza o `android.R.layout.simple_list_item_1` para garantir uma interface limpa e compatibilidade imediata com o tema do sistema.
+
+---
+
+## 🎨 Layouts (Interface Gráfica)
+
+### **`activity_main.xml`**
+*   Baseado em `ConstraintLayout`.
+*   **RecyclerView:** Ocupa a área central da tela para exibição dos nomes.
+*   **Botão Cadastrar:** Posicionado estrategicamente na parte inferior para fácil acesso.
+
+### **`create_user.xml`**
+*   Estruturado para clareza visual.
+*   Inclui campos para Nome Completo e E-mail, além de um botão de ação "Salvar".
+
+---
+
+## ⚡ Tecnologias e Conceitos Aplicados
+
+*   **Java 8+:** Uso de **Expressões Lambda** para listeners de clique, tornando o código mais legível e moderno.
+*   **Android Jetpack:** Uso de `AppCompatActivity` e `ConstraintLayout`.
+*   **Google Material Components:** Botões e campos de texto padronizados.
+*   **Intents:** Sistema de mensagens do Android para navegação entre telas.
+
+---
+
+## 🚀 Como Executar o Projeto
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone [url-do-repositorio]
+    ```
+2.  **Abra no Android Studio:** Certifique-se de estar usando a versão **Ladybug** ou superior.
+3.  **Sincronização:** O projeto baixará automaticamente as dependências do `AppCompat`, `ConstraintLayout` e `Material Design`.
+4.  **Execução:** Clique no botão **Run** e selecione um emulador ou dispositivo físico com **API 24+ (Android 7.0)**.
+
+---
+
+## 📌 Evolução do Projeto (Próximos Passos)
+
+Para elevar o nível técnico deste projeto, as próximas implementações planejadas são:
+1.  **Room Database:** Substituir a lista estática por persistência em banco de dados local (SQLite).
+2.  **View Binding:** Eliminar o `findViewById` para aumentar a segurança do código em tempo de compilação.
+3.  **Modelos de Dados:** Criar uma classe `User.java` para tratar Nome e Email como objetos, em vez de Strings concatenadas.
+
+---
+*Desenvolvido por João Felipe & Vinicius - Foco em excelência no desenvolvimento Android Nativo.*
