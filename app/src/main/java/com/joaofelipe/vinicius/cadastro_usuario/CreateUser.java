@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import adroidx.appcompat.app.AppCompatActivity;
 public class CreateUser  extends AppCompatActivity {
     TextInputEditText editNome, editEmail;
 
